@@ -1,6 +1,7 @@
 name: Markdownlint
 
 on:
+  pull_request:
   push:
     branches: [ main ]
 
@@ -13,5 +14,5 @@ jobs:
       with:
           fetch-depth: 0 # important for git diff comparisons
 
-    - name: Run own MDL action
+    - name: Run Markdownlint
       uses: test-org-for-release/.github/actions/markdownlint@main
