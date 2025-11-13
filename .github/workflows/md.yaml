@@ -10,6 +10,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v5
+      with:
+          fetch-depth: 0 # important for git diff comparisons
 
     - name: Run own MDL action
       uses: test-org-for-release/.github/actions/markdownlint@main
