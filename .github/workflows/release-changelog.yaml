@@ -31,5 +31,5 @@ jobs:
       - name: Use git-cliff for changelog generation, create git tag, push to repo
         uses: test-org-for-release/.github/actions/git-cliff@main
         with:
-          REF: ${{ github.ref_name }}
+          REF_NAME: ${{ github.ref_name }}
           VERSION: ${{ github.event.inputs.version }}
