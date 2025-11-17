@@ -1,5 +1,4 @@
-#
-name: Create and publish image to GHCR
+name: Publish-GHCR
 
 # Everytime a new version tag is pushed
 # or the workflow is triggered manually
