@@ -28,7 +28,7 @@ jobs:
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ inputs.registry }}
+          registry: ghcr.io/test-org-for-release
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
