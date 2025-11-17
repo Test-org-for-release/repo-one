@@ -1,0 +1,38 @@
+#
+name: Create and publish image to GHCR
+
+# Everytime a new version tag is pushed
+# or the workflow is triggered manually
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Image Tag (used when not automatically triggered)"
+        required: true
+        default: "dev"
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+# Sets the permissions granted to the `GITHUB_TOKEN` for the actions.
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Run image build and push pipeline
+        uses: test-org-for-release/.github/actions/build-and-push-ghcr@main
+        with:
+          REGISTRY: ghcr.io/test-org-for-release
+          IMAGE_NAME: server
+          IMAGE_TAG: {{ github.event.inputs.tag || github.ref_name }}
