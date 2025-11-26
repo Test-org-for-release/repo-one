@@ -1,7 +1,5 @@
 # repo-one
 
-### Wrong Header
-
 ## same header
 
 ## same header
