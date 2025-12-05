@@ -33,3 +33,7 @@ jobs:
         with:
           REF_NAME: ${{ github.ref_name }}
           VERSION: ${{ github.event.inputs.version }}
+
+      - name: Update appVersion in Helm Chart.yaml file for k8s
+        run: |
+          sed -i "s/^appVersion:.*/appVersion: ${{ github.event.inputs.version }}/" deployments/k8s/kube-broker/Chart.yaml
