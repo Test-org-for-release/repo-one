@@ -3,6 +3,28 @@
 The list of commits in this changelog is automatically generated in the release process.
 The commits follow the Conventional Commit specification.
 
+## [0.1.1] - 2025-12-05
+
+### 🚀 Features
+
+- Add appVersion from CI at release
+- Test new mdl pipeline
+- Add Docker generation workflow
+
+### 🐛 Bug Fixes
+
+- Mdl adjustments
+- Mdl lints
+- Adjust registry
+- Adjust workflow
+- Adjust variable
+- Adjust workflow file
+
+### 🧪 Testing
+
+- Another mdl test
+- Add new test files
+
 ## [0.0.2] - 2025-11-14
 
 ### 🚀 Features
