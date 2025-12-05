@@ -3,6 +3,12 @@
 The list of commits in this changelog is automatically generated in the release process.
 The commits follow the Conventional Commit specification.
 
+## [0.1.2] - 2025-12-05
+
+### 🚀 Features
+
+- Add another feature
+
 ## [0.1.1] - 2025-12-05
 
 ### 🚀 Features
