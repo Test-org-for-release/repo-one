@@ -5,3 +5,25 @@ tasks:
     desc: "Build binary"
     cmds:
       - cmd: go build -o bin/test-app test-app.go
+
+  check-dependencies:
+    desc: "Set the dependencies"
+    cmds:
+      - go mod tidy && go mod verify
+
+  format:
+    desc: "Apply formatting rules to Go code"
+    cmds:
+      - go fmt ./...
+
+  lint:
+    desc: "Apply linting to Go code"
+    cmds:
+      - go vet ./...
+
+  ci:
+    desc: "Runs continuous integration checks on source code"
+    cmds:
+      - task: check-dependencies
+      - task: format
+      - task: lint
