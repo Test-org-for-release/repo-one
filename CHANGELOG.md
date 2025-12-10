@@ -3,6 +3,12 @@
 The list of commits in this changelog is automatically generated in the release process.
 The commits follow the Conventional Commit specification.
 
+## [0.1.8] - 2025-12-10
+
+### 🐛 Bug Fixes
+
+- Add Go version to workflow file
+
 ## [0.1.7] - 2025-12-10
 
 ### 🚀 Features
