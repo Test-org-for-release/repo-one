@@ -12,26 +12,35 @@ jobs:
     strategy:
       matrix:
         include:
+          # see https://docs.github.com/en/actions/reference/runners/github-hosted-runners
           - os: ubuntu-latest
-            artifact: myapp-linux-x86_64
-          - os: macos-14          # This is Apple Silicon ARM64 macOS
-            artifact: myapp-macos-arm64
+            suffix: linux-x86_64
+          - os: macos-14
+            suffix: macos-arm64
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      # Example build; adjust for your language/tooling
+      - name: Determine version
+        id: version
+        run: |
+          if [ -n "${{ github.ref_name }}" ]; then
+            echo "version=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build
         run: |
           mkdir -p build
-          # Replace this with your actual build command
-          echo "fake binary for ${{ matrix.artifact }}" > build/${{ matrix.artifact }}
+          VERSION="${{ steps.version.outputs.version }}"
+          echo "fake binary" > build/myapp-${VERSION}-${{ matrix.suffix }}
 
-      - name: Upload build artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.artifact }}
-          path: build/${{ matrix.artifact }}
+          name: myapp-${{ matrix.suffix }}
+          path: build/myapp-${{ steps.version.outputs.version }}-${{ matrix.suffix }}
 
   release:
     name: Upload artifacts to release
@@ -47,10 +56,10 @@ jobs:
         with:
           path: dist
 
-      # Upload the artifacts to the GitHub Release
+      # Upload artifacts to GitHub Release
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/**   # upload all downloaded binaries
+          files: dist/**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
