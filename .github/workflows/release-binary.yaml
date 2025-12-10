@@ -1,0 +1,56 @@
+name: Build and Release Binaries
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  build:
+    name: Build binaries
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact: myapp-linux-x86_64
+          - os: macos-14          # This is Apple Silicon ARM64 macOS
+            artifact: myapp-macos-arm64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Example build; adjust for your language/tooling
+      - name: Build
+        run: |
+          mkdir -p build
+          # Replace this with your actual build command
+          echo "fake binary for ${{ matrix.artifact }}" > build/${{ matrix.artifact }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: build/${{ matrix.artifact }}
+
+  release:
+    name: Upload artifacts to release
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Download all build artifacts produced in the previous job
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      # Upload the artifacts to the GitHub Release
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/**   # upload all downloaded binaries
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
