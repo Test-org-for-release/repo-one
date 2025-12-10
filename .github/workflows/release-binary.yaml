@@ -19,28 +19,38 @@ jobs:
             suffix: macos-arm64
 
     steps:
-      - uses: actions/checkout@v5
+      - name: Install Task
+        uses: arduino/setup-task@v2
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
 
       - name: Determine version
         id: version
-        run: |
-          if [ -n "${{ github.ref_name }}" ]; then
-            echo "version=${{ github.ref_name }}" >> $GITHUB_OUTPUT
-          else
-            echo "version=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
-          fi
+        run: echo "version=${{ github.ref_name }}" >> $GITHUB_OUTPUT
 
-      - name: Build
+      - name: Run CI task from Taskfile
+        run: task ci
+
+      - name: Build binary
         run: |
+          task build
           mkdir -p build
-          VERSION="${{ steps.version.outputs.version }}"
-          echo "fake binary" > build/myapp-${VERSION}-${{ matrix.suffix }}
+          cp bin/test-app build/
 
-      - name: Upload artifact
+      - name: Create ZIP package
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          ARCHIVE="test-app-${VERSION}-${{ matrix.suffix }}.zip"
+          cd build
+          zip -r "../$ARCHIVE" test-app
+        shell: bash
+
+      - name: Upload artifact (ZIP)
         uses: actions/upload-artifact@v4
         with:
-          name: myapp-${{ matrix.suffix }}
-          path: build/myapp-${{ steps.version.outputs.version }}-${{ matrix.suffix }}
+          name: test-app-${{ matrix.suffix }}
+          path: test-app-${{ steps.version.outputs.version }}-${{ matrix.suffix }}.zip
 
   release:
     name: Upload artifacts to release
@@ -48,8 +58,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
       # Download all build artifacts produced in the previous job
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -60,6 +68,6 @@ jobs:
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/**
+          files: dist/**/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
