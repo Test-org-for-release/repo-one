@@ -3,6 +3,12 @@
 The list of commits in this changelog is automatically generated in the release process.
 The commits follow the Conventional Commit specification.
 
+## [0.1.7] - 2025-12-10
+
+### 🚀 Features
+
+- Add task ci
+
 ## [0.1.6] - 2025-12-10
 
 ### 🚀 Features
