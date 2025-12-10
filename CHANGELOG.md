@@ -3,6 +3,12 @@
 The list of commits in this changelog is automatically generated in the release process.
 The commits follow the Conventional Commit specification.
 
+## [0.1.5] - 2025-12-10
+
+### 🐛 Bug Fixes
+
+- Adjust binary release workflow
+
 ## [0.1.4] - 2025-12-10
 
 ### 🚀 Features
