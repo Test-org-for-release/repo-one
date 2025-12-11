@@ -19,12 +19,14 @@ jobs:
             suffix: macos-arm64
 
     steps:
-      - name: Install Task
-        uses: arduino/setup-task@v2
-
       - uses: actions/setup-go@v5
         with:
           go-version: '1.25'
+
+      - name: Install Task
+        uses: go-task/setup-task@v1
+        with:
+          version: '3.x'
 
       - name: Checkout repository
         uses: actions/checkout@v5
