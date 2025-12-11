@@ -3,6 +3,12 @@
 The list of commits in this changelog is automatically generated in the release process.
 The commits follow the Conventional Commit specification.
 
+## [0.1.9] - 2025-12-11
+
+### 🐛 Bug Fixes
+
+- Switch to official Task setup
+
 ## [0.1.8] - 2025-12-10
 
 ### 🐛 Bug Fixes
