@@ -7,6 +7,6 @@ on:
 
 jobs:
   build-and-release:
-    uses: test-org-for-release/.github/.github/workflows/build-release.yaml@main
+    uses: test-org-for-release/.github/workflows/build-release.yaml@main
     with:
       app-name: test-app
