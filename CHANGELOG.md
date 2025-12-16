@@ -3,6 +3,12 @@
 The list of commits in this changelog is automatically generated in the release process.
 The commits follow the Conventional Commit specification.
 
+## [0.1.10] - 2025-12-16
+
+### 🚜 Refactor
+
+- Adjust release and build workflow
+
 ## [0.1.9] - 2025-12-11
 
 ### 🐛 Bug Fixes
