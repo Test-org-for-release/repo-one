@@ -3,6 +3,13 @@
 The list of commits in this changelog is automatically generated in the release process.
 The commits follow the Conventional Commit specification.
 
+## [0.1.12] - 2025-12-16
+
+### 🐛 Bug Fixes
+
+- Correct path
+- Adjust path
+
 ## [0.1.11] - 2025-12-16
 
 ### 🐛 Bug Fixes
